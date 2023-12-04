@@ -1,19 +1,13 @@
 import java.util.Scanner;
 
-/**
- * SistemKompensasi
- */
-public class SistemKompensasi {
-
-    private static double[] keputusan_jam_kompen = new double[50];
-    private static String[][] akun = {{"user1", "pass1"}, {"user2", "pass2"}, {"user3", "pass3"}};
+public class SistemKompen {
+      private static String[][] akun = {{"user1", "pass1"}, {"user2", "pass2"}, {"user3", "pass3"}};
     private static String[] namaLengkap = new String[50];
     private static String[] nim = new String[50];
     private static String[] jurusan = new String[50];
     private static String[] prodi = new String[50];
     private static int[] waktu = new int[50];
     private static int jumlahMahasiswa = 0;
-    private static String [] tugas = new String[50];
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -96,16 +90,10 @@ public class SistemKompensasi {
             jurusan[jumlahMahasiswa] = input.nextLine();
             System.out.print("Prodi: ");
             prodi[jumlahMahasiswa] = input.nextLine();
-            double ketentuan_kompen = 2.0;
             System.out.print("Masukkan Jam Alfa: ");
             waktu[jumlahMahasiswa] = input.nextInt();
-            System.out.print("Tugas: ");
-            tugas[jumlahMahasiswa] = input.nextLine();
 
-
-            input.nextLine();
-
-            keputusan_jam_kompen[jumlahMahasiswa] = waktu[jumlahMahasiswa] * ketentuan_kompen;
+            input.nextLine(); // consume newline
 
             jumlahMahasiswa++;
 
@@ -123,8 +111,8 @@ public class SistemKompensasi {
             System.out.println("NIM: " + nim[i]);
             System.out.println("Jurusan: " + jurusan[i]);
             System.out.println("Prodi: " + prodi[i]);
-            System.out.println("Jam Alfa: " + keputusan_jam_kompen[i]);
+            System.out.println("Jam Alfa: " + waktu[i]);
             System.out.println();
- }
-}
+        }
+    }
 }
