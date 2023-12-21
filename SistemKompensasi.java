@@ -396,17 +396,6 @@ public class SistemKompensasi {
         String ANSI_RED = "\u001B[31m";
         String ANSI_GREEN = "\u001B[32m";
 
-        System.out.println("==========================================================================================================================");
-        System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                        
-        System.out.println("| ███████ ███████ ██       █████  ███    ███  █████  ████████     ██████   █████  ████████  █████  ███    ██  ██████     |"); 
-        System.out.println("| ██      ██      ██      ██   ██ ████  ████ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ████   ██ ██          |");
-        System.out.println("| ███████ █████   ██      ███████ ██ ████ ██ ███████    ██        ██   ██ ███████    ██    ███████ ██ ██  ██ ██   ███    |");
-        System.out.println("|      ██ ██      ██      ██   ██ ██  ██  ██ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ██ ██  ██ ██    ██    |");
-        System.out.println("| ███████ ███████ ███████ ██   ██ ██      ██ ██   ██    ██        ██████  ██   ██    ██    ██   ██ ██   ████  ██████     |");
-        System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                      
-        System.out.println("|                                                                                                                        |");
-        System.out.println("=========================================================================================================================="); 
-        
         while (!loggedIn) {
             System.out.print("Masukkan Nama Pengguna: ");
             username = input.nextLine();
@@ -416,9 +405,16 @@ public class SistemKompensasi {
             for (int i = 0; i < akun.length; i++) {
                 if (username.equals(namaLengkap[i]) && password.equals(nim[i])) {
                     loggedIn = true;
-                    System.out.println("===============================================");
-                    System.out.println(" Login berhasil. Selamat datang, " + username );
-                    System.out.println("===============================================");
+                    System.out.println("==========================================================================================================================");
+                    System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                        
+                    System.out.println("| ███████ ███████ ██       █████  ███    ███  █████  ████████     ██████   █████  ████████  █████  ███    ██  ██████     |"); 
+                    System.out.println("| ██      ██      ██      ██   ██ ████  ████ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ████   ██ ██          |");
+                    System.out.println("| ███████ █████   ██      ███████ ██ ████ ██ ███████    ██        ██   ██ ███████    ██    ███████ ██ ██  ██ ██   ███    |");
+                    System.out.println("|      ██ ██      ██      ██   ██ ██  ██  ██ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ██ ██  ██ ██    ██    |");
+                    System.out.println("| ███████ ███████ ███████ ██   ██ ██      ██ ██   ██    ██        ██████  ██   ██    ██    ██   ██ ██   ████  ██████     |");
+                    System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                      
+                    System.out.println("|                                                                                                                        |");
+                    System.out.println("=========================================================================================================================="); 
                     break;
                 }
             }
@@ -436,8 +432,9 @@ public class SistemKompensasi {
             System.out.println("=====================================");
             System.out.println("|         PILIHAN DAFTAR MENU       |");
             System.out.println("=====================================");
-            System.out.println("1. Riwayat Tugas");
-            System.out.println("2. Keluar");
+            System.out.println("| 1. Riwayat Tugas                  |");
+            System.out.println("| 2. Keluar                         |");
+            System.out.println("=====================================");
             System.out.print("Pilihan : ");
             milih = input.nextInt();
 
@@ -459,7 +456,7 @@ public class SistemKompensasi {
 
                     if (indeksMahasiswa != -1) {
                     while (semesterTampil < 1 || semesterTampil > 8) {
-                        System.out.println("Pilih Semester (1-8) untuk menampilkan riwayat jam alfa : ");
+                        System.out.print("Pilih Semester (1-8) untuk menampilkan riwayat jam alfa : ");
                         semesterTampil = input.nextInt();
                     }
                     displayRiwayatTugasDanJamAlfa(jamAlfaSemester, semesterTampil, indeksMahasiswa);
