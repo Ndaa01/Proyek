@@ -6,10 +6,9 @@ import java.util.Scanner;
 /**
  * SistemKompensasi
  */
-public class SistemKompensasi {
+public class  SistemKompensasi {
     private static String[][] akun = {{"user1", "pass1"}, {"user2", "pass2"}, {"user3", "pass3"}};
     private static int[][] jamAlfa = new int[50][8];
-    private static String dataFile = "data.txt";
     private static String[] prodiMahasiswa = new String[50];
     public static void setJamAlfa(int[][] JamAlfaData) {
         jamAlfa = jamAlfaSemester;
@@ -26,59 +25,114 @@ public class SistemKompensasi {
         return jamAlfa;
     }
 
-    public static void hapusJamAlfa() {
+    public static void UpdateJamAlfa() {
         Scanner input = new Scanner(System.in);
-
+    
         // Menampilkan daftar mahasiswa
         System.out.println("=====================================");
         System.out.println("|     DAFTAR MAHASISWA TERDAFTAR    |");
         System.out.println("=====================================");
         tampilMahasiswa(namaLengkap, nim, jurusan, prodi, waktu, tugas, jumlahMahasiswa);
-
+    
         // Pilih mahasiswa
         System.out.print("Pilih Mahasiswa (1-" + jumlahMahasiswa + "): ");
         int pilihMahasiswa = input.nextInt();
         input.nextLine();
-
+    
         // Validasi pilihan mahasiswa
         if (pilihMahasiswa >= 1 && pilihMahasiswa <= jumlahMahasiswa) {
             int indeksMahasiswa = pilihMahasiswa - 1;
-
-            // Menampilkan riwayat jam alfa
+            
+            // Menampilkan riwayat tugas setelah memilih mahasiswa
             displayRiwayatTugasDanJamAlfa(jamAlfaSemester, indeksMahasiswa, indeksMahasiswa);
 
-            // Meminta input semester yang akan dihapus jam alfa
-            System.out.print("Pilih Semester (1-8) untuk menghapus jam alfa: ");
-            int semesterHapus = input.nextInt();
+            // Meminta pilihan aksi (tambah atau hapus)
+            System.out.println("=========================================");
+            System.out.println("|              PILIH AKSI               |");
+            System.out.println("=========================================");
+            System.out.println("| 1. Hapus Jam Alfa                     |");
+            System.out.println("| 2. Tambah Jam Alfa                    |");
+            System.out.println("=========================================");
+            System.out.print("Pilih : ");
+            
+            int pilihanAksi = input.nextInt();
             input.nextLine();
-
-            // Validasi pilihan semester
-            if (semesterHapus >= 1 && semesterHapus <= 8) {
-                // Meminta input jumlah jam alfa yang akan dihapus
-                System.out.print("Masukkan jumlah jam alfa yang akan dihapus: ");
-                int jamAlfaHapus = input.nextInt();
-                input.nextLine();
-
-                // Validasi input jam alfa yang akan dihapus
-                if (jamAlfaHapus >= 0 && jamAlfaHapus <= jamAlfaSemester[indeksMahasiswa][semesterHapus - 1]) {
-                    // Menghapus jam alfa
-                    jamAlfaSemester[indeksMahasiswa][semesterHapus - 1] -= jamAlfaHapus;
-                    System.out.println("Jam alfa berhasil dihapus.");
-                } else {
-                    System.out.println("Jumlah jam alfa yang dimasukkan tidak valid.");
-                }
+    
+            if (pilihanAksi == 1) {
+                // Hapus jam alfa
+                hapusJamAlfa(jamAlfaSemester, indeksMahasiswa);
+            } else if (pilihanAksi == 2) {
+                // Tambah jam alfa
+                tambahJamAlfa(jamAlfaSemester, indeksMahasiswa);
             } else {
-                System.out.println("Pilihan semester tidak valid.");
+                System.out.println("Pilihan aksi tidak valid.");
             }
+    
         } else {
             System.out.println("Pilihan mahasiswa tidak valid.");
         }
     }
-
+    
+    // Fungsi untuk menambah jam alfa
+    public static void tambahJamAlfa(int[][] jamAlfaSemester, int indeksMahasiswa) {
+        Scanner input = new Scanner(System.in);
+    
+        // Meminta input semester untuk menambah jam alfa
+        System.out.print("Pilih Semester (1-8) untuk menambah jam alfa: ");
+        int semesterTambah = input.nextInt();
+        input.nextLine();
+    
+        // Validasi pilihan semester
+        if (semesterTambah >= 1 && semesterTambah <= 8) {
+            // Meminta input jumlah jam alfa yang akan ditambahkan
+            System.out.print("Masukkan jumlah jam alfa yang akan ditambahkan: ");
+            int jamAlfaTambah = input.nextInt();
+            input.nextLine();
+    
+            // Validasi input jam alfa yang akan ditambahkan
+            if (jamAlfaTambah >= 0) {
+                // Menambah jam alfa
+                jamAlfaSemester[indeksMahasiswa][semesterTambah - 1] += jamAlfaTambah;
+                System.out.println("Jam alfa berhasil ditambahkan.");
+            } else {
+                System.out.println("Jumlah jam alfa yang dimasukkan tidak valid.");
+            }
+        } else {
+            System.out.println("Pilihan semester tidak valid.");
+        }
+    }
+    
+    // Fungsi untuk menghapus jam alfa
+    public static void hapusJamAlfa(int[][] jamAlfaSemester, int indeksMahasiswa) {
+        Scanner input = new Scanner(System.in);
+        
+    
+        // Meminta input semester yang akan dihapus jam alfa
+        System.out.print("Pilih Semester (1-8) untuk menghapus jam alfa: ");
+        int semesterHapus = input.nextInt();
+        input.nextLine();
+    
+        // Validasi pilihan semester
+        if (semesterHapus >= 1 && semesterHapus <= 8) {
+            // Meminta input jumlah jam alfa yang akan dihapus
+            System.out.print("Masukkan jumlah jam alfa yang akan dihapus: ");
+            int jamAlfaHapus = input.nextInt();
+            input.nextLine();
+    
+            // Validasi input jam alfa yang akan dihapus
+            if (jamAlfaHapus >= 0 && jamAlfaHapus <= jamAlfaSemester[indeksMahasiswa][semesterHapus - 1]) {
+                // Menghapus jam alfa
+                jamAlfaSemester[indeksMahasiswa][semesterHapus - 1] -= jamAlfaHapus;
+                System.out.println("Jam alfa berhasil dihapus.");
+            } else {
+                System.out.println("Jumlah jam alfa yang dimasukkan tidak valid.");
+            }
+        } else {
+            System.out.println("Pilihan semester tidak valid.");
+        }
+    }
 
     public static void main(String[] args) {
-        loadData();
-
        Scanner input = new Scanner(System.in);
         int pemilihan;
 
@@ -113,50 +167,10 @@ public class SistemKompensasi {
                 }
             } while (pemilihan != 1 && pemilihan != 2);
         } while (true);
-        saveData();
+       
     }
 
-    private static void saveData() {
-        try {
-            FileWriter writer = new FileWriter(dataFile);
-            // Menyimpan data ke file
-            for (int i = 0; i < jumlahMahasiswa; i++) {
-                writer.write(namaLengkap[i] + " " + nim[i] + " " + jurusan[i] + " " + prodi[i] + " " + waktu[i] + " " + prodiMahasiswa[i] + " ");
-               
-                for (int j = 0; j < jamAlfa.length; j++) {
-                    writer.write(jamAlfaSemester[i][j] + " ");
-                }
-                writer.write("\n");
-            }
-
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void loadData() {
-        try {
-            File file = new File(dataFile);
-            if (file.exists()) {
-                Scanner scanner = new Scanner(file);
-
-                for (int i = 0; i < jamAlfa.length && scanner.hasNextLine(); i++) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split(" ");
-                   
-                    for (int j = 0; j < parts.length; j++) {
-                        jamAlfa[i][j] = Integer.parseInt(parts[j]);
-                }
-            }
-                scanner.close();
-            }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+   
     public static void clear() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -220,7 +234,7 @@ public class SistemKompensasi {
         System.out.println("|           PILIHAN DAFTAR MENU         |");
         System.out.println("=========================================");
         System.out.println("| 1. Pemberian Jam Kompen               |");
-        System.out.println("| 2. Penghapusan Jam Kompensasi         |");
+        System.out.println("| 2. Update Jam Kompen                  |");
         System.out.println("| 3. Riwayat Tugas                      |");
         System.out.println("| 4. Keluar                             |");
         System.out.println("=========================================");
@@ -234,7 +248,7 @@ public class SistemKompensasi {
             break;
             
             case 2:
-            hapusJamAlfa();
+            UpdateJamAlfa();
             break;
 
             case 3:
@@ -372,6 +386,7 @@ public class SistemKompensasi {
             prodi[jumlahMahasiswa] = input.nextLine();
             System.out.println("Total Jam Alfa: ");
             waktu[jumlahMahasiswa] = input.nextInt();
+
         }
     
         public static void tampilMahasiswa(String[] namaLengkap, String[] nim, String[] jurusan, String[] prodi, int[] waktu, String[] tugas, int jumlahMahasiswa) {
@@ -396,6 +411,17 @@ public class SistemKompensasi {
         String ANSI_RED = "\u001B[31m";
         String ANSI_GREEN = "\u001B[32m";
 
+        System.out.println("==========================================================================================================================");
+        System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                        
+        System.out.println("| ███████ ███████ ██       █████  ███    ███  █████  ████████     ██████   █████  ████████  █████  ███    ██  ██████     |"); 
+        System.out.println("| ██      ██      ██      ██   ██ ████  ████ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ████   ██ ██          |");
+        System.out.println("| ███████ █████   ██      ███████ ██ ████ ██ ███████    ██        ██   ██ ███████    ██    ███████ ██ ██  ██ ██   ███    |");
+        System.out.println("|      ██ ██      ██      ██   ██ ██  ██  ██ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ██ ██  ██ ██    ██    |");
+        System.out.println("| ███████ ███████ ███████ ██   ██ ██      ██ ██   ██    ██        ██████  ██   ██    ██    ██   ██ ██   ████  ██████     |");
+        System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                      
+        System.out.println("|                                                                                                                        |");
+        System.out.println("=========================================================================================================================="); 
+        
         while (!loggedIn) {
             System.out.print("Masukkan Nama Pengguna: ");
             username = input.nextLine();
@@ -405,16 +431,9 @@ public class SistemKompensasi {
             for (int i = 0; i < akun.length; i++) {
                 if (username.equals(namaLengkap[i]) && password.equals(nim[i])) {
                     loggedIn = true;
-                    System.out.println("==========================================================================================================================");
-                    System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                        
-                    System.out.println("| ███████ ███████ ██       █████  ███    ███  █████  ████████     ██████   █████  ████████  █████  ███    ██  ██████     |"); 
-                    System.out.println("| ██      ██      ██      ██   ██ ████  ████ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ████   ██ ██          |");
-                    System.out.println("| ███████ █████   ██      ███████ ██ ████ ██ ███████    ██        ██   ██ ███████    ██    ███████ ██ ██  ██ ██   ███    |");
-                    System.out.println("|      ██ ██      ██      ██   ██ ██  ██  ██ ██   ██    ██        ██   ██ ██   ██    ██    ██   ██ ██ ██  ██ ██    ██    |");
-                    System.out.println("| ███████ ███████ ███████ ██   ██ ██      ██ ██   ██    ██        ██████  ██   ██    ██    ██   ██ ██   ████  ██████     |");
-                    System.out.println("|                                                                                                                        |");                                                                                                                                                                                                                      
-                    System.out.println("|                                                                                                                        |");
-                    System.out.println("=========================================================================================================================="); 
+                    System.out.println("===============================================");
+                    System.out.println(" Login berhasil. Selamat datang, " + username );
+                    System.out.println("===============================================");
                     break;
                 }
             }
@@ -432,9 +451,8 @@ public class SistemKompensasi {
             System.out.println("=====================================");
             System.out.println("|         PILIHAN DAFTAR MENU       |");
             System.out.println("=====================================");
-            System.out.println("| 1. Riwayat Tugas                  |");
-            System.out.println("| 2. Keluar                         |");
-            System.out.println("=====================================");
+            System.out.println("1. Riwayat Tugas");
+            System.out.println("2. Keluar");
             System.out.print("Pilihan : ");
             milih = input.nextInt();
 
@@ -456,7 +474,7 @@ public class SistemKompensasi {
 
                     if (indeksMahasiswa != -1) {
                     while (semesterTampil < 1 || semesterTampil > 8) {
-                        System.out.print("Pilih Semester (1-8) untuk menampilkan riwayat jam alfa : ");
+                        System.out.println("Pilih Semester (1-8) untuk menampilkan riwayat jam alfa : ");
                         semesterTampil = input.nextInt();
                     }
                     displayRiwayatTugasDanJamAlfa(jamAlfaSemester, semesterTampil, indeksMahasiswa);
@@ -485,8 +503,8 @@ public class SistemKompensasi {
                             jamAlfaSemester[indeksMahasiswa][j], calculatePercentage(jamAlfaSemester[indeksMahasiswa][j]));
                 }
                 System.out.println("===============================================");
-                  System.out.print("Tekan Enter untuk melanjutkan ");
-            new java.util.Scanner(System.in).nextLine();
+                System.out.print("Tekan Enter untuk melanjutkan ");
+                new java.util.Scanner(System.in).nextLine();
     }
     public static double calculatePercentage(int jamAlfa) {
         if (jamAlfa == 0) {
